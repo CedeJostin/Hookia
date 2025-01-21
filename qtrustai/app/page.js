@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { BotIcon as Robot, Users, Lightbulb, Target } from 'lucide-react'
 import "./globals.css"
+import ChatComponent from '../components/ui/chat';
 
 export default function Page() {
     return (
@@ -85,6 +86,19 @@ export default function Page() {
               </div>
             </div>
           </section>
+          <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
+          <div className="container mx-auto px-4 md:px-6">
+            <div className="flex flex-col items-center space-y-4 text-center mb-8">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                Chatea con Nosotros
+              </h2>
+              <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
+                Estamos aquí para ayudarte con cualquier pregunta que tengas.
+              </p>
+            </div>
+            < ChatComponent/>
+          </div>
+        </section>
         </main>
         <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
           <p className="text-xs text-gray-500 dark:text-gray-400">© 2024 TrustIA. Todos los derechos reservados.</p>

@@ -29,7 +29,7 @@ const ChatComponent = () => {
       };
 
       const response = await axios.post(
-        'https://n8n-g.onrender.com/webhook/08ed44bc-955c-46ff-a703-277f5d0a8551',
+        'https://n8n-g.onrender.com/webhook-test/08ed44bc-955c-46ff-a703-277f5d0a8551',
         messageData
       );
 
@@ -45,7 +45,7 @@ const ChatComponent = () => {
   // Función para establecer Server-Sent Events (SSE)
   useEffect(() => {
     const setupSSE = () => {
-      const eventSource = new EventSource('http://localhost:3000/api/chat-events');
+      const eventSource = new EventSource('https://q-trust-ai.vercel.app/api/receive-messages');
 
       eventSource.onmessage = (event) => {
         const data = JSON.parse(event.data);

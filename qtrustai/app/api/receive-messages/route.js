@@ -1,15 +1,13 @@
-import { NextResponse } from 'next/server';
-
 export async function POST(request) {
-  try {
-    const body = await request.json();
-    
-    // Aquí puedes procesar el mensaje recibido
-    console.log('Mensaje recibido:', body);
-    
-    return NextResponse.json({ status: 'ok' }, { status: 200 });
-  } catch (error) {
-    console.error('Error:', error);
-    return NextResponse.json({ error: 'Error processing message' }, { status: 500 });
-  }
+  const { message } = await request.json();
+  const { parte1, parte2, parte3 } = message;
+
+  // Procesa los datos recibidos
+  console.log('Parte 1:', parte1);
+  console.log('Parte 2:', parte2);
+  console.log('Parte 3:', parte3);
+
+  return new Response(JSON.stringify({ status: 'success' }), {
+    headers: { 'Content-Type': 'application/json' },
+  });
 }

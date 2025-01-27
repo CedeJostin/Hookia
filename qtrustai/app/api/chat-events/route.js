@@ -14,11 +14,15 @@ export async function GET() {
     start(controller) {
       // Mantener la conexión viva
       const interval = setInterval(() => {
-        controller.enqueue(encoder.encode('event: ping\ndata: ping\n\n'));
+        if (controller.desiredSize !== null) {
+          controller.enqueue(encoder.encode('event: ping\ndata: ping\n\n'));
+        } else {
+          clearInterval(interval);
+        }
       }, 30000);
 
       // Limpiar el intervalo cuando se cierre la conexión
-      return () => clearInterval(interval);
+      controller.closed.then(() => clearInterval(interval));
     }
   });
 

@@ -44,23 +44,48 @@ const ChatComponent = () => {
 
   // Función para establecer Server-Sent Events (SSE)
   useEffect(() => {
+    let eventSource;
+    let retryCount = 0;
+    const maxRetries = 3;
+  
     const setupSSE = () => {
-      const eventSource = new EventSource('https://q-trust-ai.vercel.app/api/receive-messages');
-
-      eventSource.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        setMessages(prev => [...prev, { text: data.message.parte1, sent: false }]);
+      eventSource = new EventSource('/api/receive-messages');
+  
+      eventSource.onopen = () => {
+        console.log('SSE Conexión establecida');
+        retryCount = 0;
       };
-
+  
+      eventSource.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          if (data.message?.parte1) {
+            setMessages(prev => [...prev, { text: data.message.parte1, sent: false }]);
+          }
+        } catch (error) {
+          console.error('Error al procesar mensaje:', error);
+        }
+      };
+  
       eventSource.onerror = (error) => {
         console.error('SSE Error:', error);
         eventSource.close();
+        
+        if (retryCount < maxRetries) {
+          retryCount++;
+          console.log(`Reintentando conexión ${retryCount}/${maxRetries}`);
+          setTimeout(setupSSE, 5000);
+        }
       };
-
-      return () => eventSource.close();
     };
-
+  
     setupSSE();
+  
+    return () => {
+      if (eventSource) {
+        eventSource.close();
+      }
+    };
   }, []);
 
   return (

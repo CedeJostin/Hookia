@@ -3,7 +3,6 @@ const nextConfig = {
     async headers() {
       return [
         {
-          // Aplicar estas cabeceras a todas las rutas de la API
           source: "/api/:path*",
           headers: [
             { key: "Access-Control-Allow-Credentials", value: "true" },
@@ -16,4 +15,5 @@ const nextConfig = {
     }
   }
   
-  module.exports = nextConfig
+  // Usa 'export default' en lugar de module.exports
+  export default nextConfig;

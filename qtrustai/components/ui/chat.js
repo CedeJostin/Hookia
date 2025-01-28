@@ -29,7 +29,7 @@ const ChatComponent = () => {
       };
 
       const response = await axios.post(
-        'https://n8n-g.onrender.com/webhook/08ed44bc-955c-46ff-a703-277f5d0a8551',
+        'https://n8n-g.onrender.com/webhook-test/08ed44bc-955c-46ff-a703-277f5d0a8551',
         messageData
       );
 

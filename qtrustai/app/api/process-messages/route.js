@@ -4,7 +4,6 @@ export async function POST(request) {
   try {
     const { conversationId, message } = await request.json();
 
-    // Validar campos requeridos
     if (!conversationId || typeof conversationId !== 'string') {
       return new Response(JSON.stringify({ error: 'ID de conversación inválido' }), {
         status: 400,
@@ -19,38 +18,23 @@ export async function POST(request) {
       });
     }
 
-    // 1. Enviar mensaje a n8n con ID de conversación
-    const n8nResponse = await fetch('https://n8n-g.onrender.com/webhook/08ed44bc-955c-46ff-a703-277f5d0a8551', {
+    // 1. Enviar mensaje a n8n SIN esperar respuesta (para mejorar el rendimiento)
+    fetch('https://n8n-g.onrender.com/webhook/08ed44bc-955c-46ff-a703-277f5d0a8551', {
       method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         conversationId,
-        message
+        message,
+        callbackUrl: 'https://q-trust-ai.vercel.app/api/respuestaFinal' // Aquí n8n enviará la respuesta final
       })
-    });
+    }).catch(error => console.error('Error enviando a n8n:', error));
 
-    // 2. Esperar y simular respuesta de n8n (ajustado a 8 segundos)
-    const processedData = await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          conversationId, // Incluir el ID en la respuesta
-          parts: {
-            parte1: "Respuesta procesada 1",
-            parte2: "Respuesta procesada 2",
-            parte3: "Respuesta procesada 3"
-          },
-          timestamp: new Date().toISOString()
-        });
-      }, 10000); // 8 segundos
-    });
-
-    // 3. Devoler respuesta estructurada
-    return new Response(JSON.stringify(processedData), {
-      headers: { 
-        'Content-Type': 'application/json',
-      }
+    // 2. Responder rápido al usuario
+    return new Response(JSON.stringify({
+      status: "processing",
+      conversationId
+    }), {
+      headers: { 'Content-Type': 'application/json' }
     });
 
   } catch (error) {

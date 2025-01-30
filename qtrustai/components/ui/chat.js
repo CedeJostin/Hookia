@@ -10,74 +10,41 @@ import { Input } from "@/components/ui/input";
 const ChatComponent = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
-  const [conversationId, setConversationId] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Generar un ID de conversación único al montar el componente
-  useEffect(() => {
-    const id = uuidv4();
-    setConversationId(id);
-  }, []);
-
-  // Función para enviar un mensaje
   const sendMessage = async (e) => {
     e.preventDefault();
+    if (!inputMessage.trim() || isLoading) return;
 
-    if (!inputMessage.trim()) return;
+    setIsLoading(true);
 
     try {
-      const messageData = {
-        message: {
-          parte1: inputMessage,
-          idrandom: conversationId,
-        },
-      };
+      // 1. Enviar mensaje y esperar respuesta
+      const response = await fetch('https://q-trust-ai.vercel.app/api/process-messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: inputMessage })
+      });
 
-      // Enviar el mensaje a n8n
-      const response = await axios.post(
-        'https://n8n-g.onrender.com/webhook/08ed44bc-955c-46ff-a703-277f5d0a8551',
-        messageData
-      );
+      // 2. Procesar respuesta
+      const data = await response.json();
+      
+      // 3. Actualizar el chat
+      setMessages(prev => [
+        ...prev,
+        { text: inputMessage, sent: true }, // Mensaje del usuario
+        { text: data.parte1, sent: false }, // Respuesta 1
+        { text: data.parte2, sent: false }, // Respuesta 2
+        { text: data.parte3, sent: false }  // Respuesta 3
+      ]);
 
-      if (response.status === 200) {
-        // Agregar el mensaje enviado al chat
-        setMessages((prev) => [
-          ...prev,
-          { text: inputMessage, sent: true },
-        ]);
-        setInputMessage('');
-      }
+      setInputMessage('');
     } catch (error) {
-      console.error('Error enviando el mensaje:', error);
+      console.error('Error:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
-
-  // Configurar la conexión SSE
-  useEffect(() => {
-    const eventSource = new EventSource('/api/chat-events');
-  
-    eventSource.onmessage = (event) => {
-      if (event.data === 'ping') return; // Ignorar pings
-      
-      try {
-        const data = JSON.parse(event.data);
-        // Procesar partes del mensaje
-        if (data.message) {
-          Object.values(data.message).forEach(part => {
-            if (part) setMessages(prev => [...prev, { text: part, sent: false }]);
-          });
-        }
-      } catch (error) {
-        console.error('Error parsing SSE data:', error);
-      }
-    };
-  
-    eventSource.onerror = () => {
-      eventSource.close();
-      setTimeout(() => setupSSE(), 3000); // Reconectar después de 3 segundos
-    };
-  
-    return () => eventSource.close();
-  }, []);
 
   return (
     <Card className="w-full max-w-md mx-auto">

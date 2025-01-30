@@ -13,80 +13,31 @@ const ChatComponent = () => {
   const [conversationId, setConversationId] = useState('');
 
   useEffect(() => {
-    const id = uuidv4();
-    setConversationId(id);
-  }, []);
-
-  const sendMessage = async (e) => {
-    e.preventDefault();
-    
-    try {
-      const messageData = {
-        message: {
-          parte1: inputMessage,
-          idrandom: conversationId,
-        }
-      };
-
-      const response = await axios.post(
-        'https://n8n-g.onrender.com/webhook/08ed44bc-955c-46ff-a703-277f5d0a8551',
-        messageData
-      );
-
-      if (response.status === 200) {
-        setMessages(prev => [...prev, { text: inputMessage, sent: true }]);
-        setInputMessage('');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // Función para establecer Server-Sent Events (SSE)
-  useEffect(() => {
-    let eventSource;
-    let retryCount = 0;
-    const maxRetries = 3;
-  
     const setupSSE = () => {
-      eventSource = new EventSource('/api/receive-messages');
-  
-      eventSource.onopen = () => {
-        console.log('SSE Conexión establecida');
-        retryCount = 0;
-      };
+      // Usar URL de producción en lugar de localhost
+      const eventSource = new EventSource('https://q-trust-ai.vercel.app/api/chat-events');
   
       eventSource.onmessage = (event) => {
-        try {
-          const data = JSON.parse(event.data);
-          if (data.message?.parte1) {
-            setMessages(prev => [...prev, { text: data.message.parte1, sent: false }]);
-          }
-        } catch (error) {
-          console.error('Error al procesar mensaje:', error);
-        }
+        if(event.data === ': keep-alive') return;
+        
+        const data = JSON.parse(event.data);
+        setMessages(prev => [...prev, { 
+          text: data.message.parte1, 
+          sent: data.message.idrandom === conversationId
+        }]);
       };
   
       eventSource.onerror = (error) => {
         console.error('SSE Error:', error);
         eventSource.close();
-        
-        if (retryCount < maxRetries) {
-          retryCount++;
-          console.log(`Reintentando conexión ${retryCount}/${maxRetries}`);
-          setTimeout(setupSSE, 5000);
-        }
+        setTimeout(setupSSE, 1000); // Reconexión automática
       };
+  
+      return () => eventSource.close();
     };
   
     setupSSE();
-  
-    return () => {
-      if (eventSource) {
-        eventSource.close();
-      }
-    };
-  }, []);
+  }, [conversationId]);
 
   return (
     <Card className="w-full max-w-md mx-auto">

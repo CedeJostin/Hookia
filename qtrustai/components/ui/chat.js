@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,36 +10,56 @@ const ChatComponent = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [conversationId, setConversationId] = useState('');
+
+  // Generar ID único al montar el componente
+  useEffect(() => {
+    const newConversationId = uuidv4();
+    setConversationId(newConversationId);
+  }, []);
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    if (!inputMessage.trim() || isLoading) return;
+    if (!inputMessage.trim() || isLoading || !conversationId) return;
 
     setIsLoading(true);
 
     try {
-      // 1. Enviar mensaje y esperar respuesta
+      // Agregar mensaje del usuario inmediatamente
+      setMessages(prev => [...prev, { text: inputMessage, sent: true }]);
+      
+      // Enviar mensaje con ID de conversación
       const response = await fetch('https://q-trust-ai.vercel.app/api/process-messages', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: inputMessage })
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-Conversation-ID': conversationId // Opcional: enviar también en headers
+        },
+        body: JSON.stringify({
+          conversationId,
+          message: inputMessage
+        })
       });
 
-      // 2. Procesar respuesta
-      const data = await response.json();
+      if (!response.ok) throw new Error('Error en la respuesta del servidor');
       
-      // 3. Actualizar el chat
-      setMessages(prev => [
-        ...prev,
-        { text: inputMessage, sent: true }, // Mensaje del usuario
-        { text: data.parte1, sent: false }, // Respuesta 1
-        { text: data.parte2, sent: false }, // Respuesta 2
-        { text: data.parte3, sent: false }  // Respuesta 3
-      ]);
+      const data = await response.json();
 
+      // Agregar respuestas al chat
+      const newMessages = [];
+      if (data.parte1) newMessages.push({ text: data.parte1, sent: false });
+      if (data.parte2) newMessages.push({ text: data.parte2, sent: false });
+      if (data.parte3) newMessages.push({ text: data.parte3, sent: false });
+
+      setMessages(prev => [...prev, ...newMessages]);
       setInputMessage('');
+
     } catch (error) {
       console.error('Error:', error);
+      setMessages(prev => [...prev, { 
+        text: "Error enviando el mensaje. Intenta nuevamente.", 
+        sent: false 
+      }]);
     } finally {
       setIsLoading(false);
     }
@@ -57,7 +76,7 @@ const ChatComponent = () => {
                 msg.sent
                   ? 'bg-primary text-primary-foreground ml-auto'
                   : 'bg-muted'
-              } max-w-[80%]`}
+              } max-w-[80%] transition-all duration-200 ease-in-out`}
             >
               {msg.text}
             </div>
@@ -71,8 +90,15 @@ const ChatComponent = () => {
             onChange={(e) => setInputMessage(e.target.value)}
             placeholder="Escribe un mensaje..."
             className="flex-1"
+            disabled={isLoading}
           />
-          <Button type="submit">Enviar</Button>
+          <Button 
+            type="submit" 
+            disabled={isLoading}
+            className="min-w-[100px]"
+          >
+            {isLoading ? 'Enviando...' : 'Enviar'}
+          </Button>
         </form>
       </CardContent>
     </Card>

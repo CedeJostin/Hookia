@@ -32,12 +32,14 @@ const ChatComponent = () => {
       const response = await fetch('https://q-trust-ai.vercel.app/api/process-messages', {
         method: 'POST',
         headers: { 
-          'Content-Type': 'application/json',
-          'X-Conversation-ID': conversationId // Opcional: enviar también en headers
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           conversationId,
-          message: inputMessage
+          message: {
+            content: inputMessage,
+            timestamp: new Date().toISOString()
+          }
         })
       });
 
@@ -45,13 +47,15 @@ const ChatComponent = () => {
       
       const data = await response.json();
 
-      // Agregar respuestas al chat
-      const newMessages = [];
-      if (data.parte1) newMessages.push({ text: data.parte1, sent: false });
-      if (data.parte2) newMessages.push({ text: data.parte2, sent: false });
-      if (data.parte3) newMessages.push({ text: data.parte3, sent: false });
+      // Actualizar el procesamiento de la respuesta
+      if (data.parts) {
+        const newMessages = Object.values(data.parts).map(text => ({
+          text,
+          sent: false
+        }));
+        setMessages(prev => [...prev, ...newMessages]);
+      }
 
-      setMessages(prev => [...prev, ...newMessages]);
       setInputMessage('');
 
     } catch (error) {

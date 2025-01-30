@@ -23,8 +23,7 @@ export async function POST(request) {
     const n8nResponse = await fetch('https://n8n-g.onrender.com/webhook/08ed44bc-955c-46ff-a703-277f5d0a8551', {
       method: 'POST',
       headers: { 
-        'Content-Type': 'application/json',
-        'X-Conversation-ID': conversationId // Opcional: Header adicional
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         conversationId,
@@ -44,14 +43,13 @@ export async function POST(request) {
           },
           timestamp: new Date().toISOString()
         });
-      }, 8000); // 8 segundos
+      }, 10000); // 8 segundos
     });
 
     // 3. Devoler respuesta estructurada
     return new Response(JSON.stringify(processedData), {
       headers: { 
         'Content-Type': 'application/json',
-        'X-Conversation-ID': conversationId
       }
     });
 

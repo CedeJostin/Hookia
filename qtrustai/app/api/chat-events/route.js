@@ -1,42 +1,24 @@
-let clients = new Set();
-let messages = [];
+import { NextResponse } from 'next/server';
 
-export async function POST(request) {
-  const { message } = await request.json();
-  
-  // Almacenar mensaje
-  messages.push(message);
-  
-  // Notificar a todos los clientes conectados
-  const data = JSON.stringify({ message });
-  clients.forEach(client => client.enqueue(encoder.encode(`data: ${data}\n\n`)));
-  
-  return new Response(JSON.stringify({ status: 'success' }));
-}
+let clients = []; // Almacena los clientes conectados
 
 export async function GET() {
-  const encoder = new TextEncoder();
-  
   const stream = new ReadableStream({
     start(controller) {
-      // Enviar historial de mensajes
-      messages.forEach(msg => {
-        controller.enqueue(encoder.encode(`data: ${JSON.stringify(msg)}\n\n`));
-      });
+      // Agregar el cliente a la lista
+      clients.push(controller);
 
-      // Registrar nuevo cliente
-      clients.add(controller);
-
-      // Mantener conexión
-      const keepAlive = setInterval(() => {
-        controller.enqueue(encoder.encode(': keep-alive\n\n'));
+      // Enviar un ping cada 30 segundos para mantener la conexión
+      const interval = setInterval(() => {
+        controller.enqueue(new TextEncoder().encode(`data: ${JSON.stringify({ message: 'ping' })}\n\n`));
       }, 30000);
 
+      // Limpiar al cerrar la conexión
       return () => {
-        clearInterval(keepAlive);
-        clients.delete(controller);
+        clearInterval(interval);
+        clients = clients.filter((client) => client !== controller);
       };
-    }
+    },
   });
 
   return new Response(stream, {
@@ -44,6 +26,17 @@ export async function GET() {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
       'Connection': 'keep-alive',
-    }
+    },
   });
+}
+
+export async function POST(request) {
+  const { message } = await request.json();
+
+  // Enviar el mensaje a todos los clientes conectados
+  clients.forEach((client) => {
+    client.enqueue(new TextEncoder().encode(`data: ${JSON.stringify({ message })}\n\n`));
+  });
+
+  return NextResponse.json({ status: 'success' });
 }

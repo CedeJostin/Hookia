@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid'; // Necesitarás instalar uuid con `npm install uuid`
+import { v4 as uuidv4 } from 'uuid';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,17 +12,17 @@ const ChatComponent = () => {
   const [inputMessage, setInputMessage] = useState('');
   const [conversationId, setConversationId] = useState('');
 
-  // Generate a unique conversation ID on component mount
+  // Generar un ID de conversación único al montar el componente
   useEffect(() => {
     const id = uuidv4();
     setConversationId(id);
   }, []);
 
-  // Function to send a message
+  // Función para enviar un mensaje
   const sendMessage = async (e) => {
-    e.preventDefault(); // Prevent form submission reload
+    e.preventDefault();
 
-    if (!inputMessage.trim()) return; // Don't send empty messages
+    if (!inputMessage.trim()) return;
 
     try {
       const messageData = {
@@ -32,26 +32,26 @@ const ChatComponent = () => {
         },
       };
 
-      // Send the message to your API
+      // Enviar el mensaje a n8n
       const response = await axios.post(
         'https://n8n-g.onrender.com/webhook/08ed44bc-955c-46ff-a703-277f5d0a8551',
         messageData
       );
 
       if (response.status === 200) {
-        // Add the sent message to the local state
+        // Agregar el mensaje enviado al chat
         setMessages((prev) => [
           ...prev,
           { text: inputMessage, sent: true },
         ]);
-        setInputMessage(''); // Clear the input field
+        setInputMessage('');
       }
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.error('Error enviando el mensaje:', error);
     }
   };
 
-  // Setup SSE connection
+  // Configurar la conexión SSE
   useEffect(() => {
     const setupSSE = () => {
       const eventSource = new EventSource('https://q-trust-ai.vercel.app/api/chat-events');
@@ -60,22 +60,36 @@ const ChatComponent = () => {
         if (event.data === ': keep-alive') return;
 
         const data = JSON.parse(event.data);
-        setMessages((prev) => [
-          ...prev,
-          {
-            text: data.message.parte1,
-            sent: data.message.idrandom === conversationId,
-          },
-        ]);
+        const { parte1, parte2, parte3 } = data.message;
+
+        // Agregar cada parte del mensaje al chat
+        if (parte1) {
+          setMessages((prev) => [
+            ...prev,
+            { text: parte1, sent: false },
+          ]);
+        }
+        if (parte2) {
+          setMessages((prev) => [
+            ...prev,
+            { text: parte2, sent: false },
+          ]);
+        }
+        if (parte3) {
+          setMessages((prev) => [
+            ...prev,
+            { text: parte3, sent: false },
+          ]);
+        }
       };
 
       eventSource.onerror = (error) => {
-        console.error('SSE Error:', error);
+        console.error('Error en SSE:', error);
         eventSource.close();
-        setTimeout(setupSSE, 1000); // Reconnect after 1 second
+        setTimeout(setupSSE, 1000); // Reconectar después de 1 segundo
       };
 
-      return () => eventSource.close(); // Cleanup on unmount
+      return () => eventSource.close();
     };
 
     setupSSE();

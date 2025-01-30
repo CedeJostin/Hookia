@@ -53,47 +53,31 @@ const ChatComponent = () => {
 
   // Configurar la conexión SSE
   useEffect(() => {
-    const setupSSE = () => {
-      const eventSource = new EventSource('https://q-trust-ai.vercel.app/api/chat-events');
-
-      eventSource.onmessage = (event) => {
-        if (event.data === ': keep-alive') return;
-
+    const eventSource = new EventSource('/api/chat-events');
+  
+    eventSource.onmessage = (event) => {
+      if (event.data === 'ping') return; // Ignorar pings
+      
+      try {
         const data = JSON.parse(event.data);
-        const { parte1, parte2, parte3 } = data.message;
-
-        // Agregar cada parte del mensaje al chat
-        if (parte1) {
-          setMessages((prev) => [
-            ...prev,
-            { text: parte1, sent: false },
-          ]);
+        // Procesar partes del mensaje
+        if (data.message) {
+          Object.values(data.message).forEach(part => {
+            if (part) setMessages(prev => [...prev, { text: part, sent: false }]);
+          });
         }
-        if (parte2) {
-          setMessages((prev) => [
-            ...prev,
-            { text: parte2, sent: false },
-          ]);
-        }
-        if (parte3) {
-          setMessages((prev) => [
-            ...prev,
-            { text: parte3, sent: false },
-          ]);
-        }
-      };
-
-      eventSource.onerror = (error) => {
-        console.error('Error en SSE:', error);
-        eventSource.close();
-        setTimeout(setupSSE, 1000); // Reconectar después de 1 segundo
-      };
-
-      return () => eventSource.close();
+      } catch (error) {
+        console.error('Error parsing SSE data:', error);
+      }
     };
-
-    setupSSE();
-  }, [conversationId]);
+  
+    eventSource.onerror = () => {
+      eventSource.close();
+      setTimeout(() => setupSSE(), 3000); // Reconectar después de 3 segundos
+    };
+  
+    return () => eventSource.close();
+  }, []);
 
   return (
     <Card className="w-full max-w-md mx-auto">

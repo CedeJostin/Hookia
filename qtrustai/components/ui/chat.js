@@ -1,3 +1,4 @@
+// components/ChatComponent.jsx
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -12,28 +13,50 @@ const ChatComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [conversationId, setConversationId] = useState('');
 
-  // Generar ID único al montar el componente
   useEffect(() => {
-    const newConversationId = uuidv4();
-    setConversationId(newConversationId);
+    setConversationId(uuidv4());
   }, []);
+
+  // Polling para verificar respuestas
+  useEffect(() => {
+    if (!conversationId) return;
+
+    const interval = setInterval(async () => {
+      try {
+        const response = await fetch(`/api/respuestaFinal?conversationId=${conversationId}`);
+        const data = await response.json();
+        
+        if (data.status === 'completed' && data.message) {
+          setMessages(prev => [
+            ...prev.filter(msg => msg.text !== '...'),
+            { text: data.message, sent: false }
+          ]);
+        }
+      } catch (error) {
+        console.error('Error polling:', error);
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [conversationId]);
 
   const sendMessage = async (e) => {
     e.preventDefault();
     if (!inputMessage.trim() || isLoading || !conversationId) return;
 
     setIsLoading(true);
-
+    setInputMessage('');
+    
     try {
-      // Agregar mensaje del usuario inmediatamente
+      // Mensaje optimista del usuario
       setMessages(prev => [...prev, { text: inputMessage, sent: true }]);
       
-      // Enviar mensaje con ID de conversación
-      const response = await fetch('https://q-trust-ai.vercel.app/api/process-messages', {
+      // Mensaje de carga del bot
+      setMessages(prev => [...prev, { text: '...', sent: false }]);
+
+      const response = await fetch('/api/process-messages', {
         method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           conversationId,
           message: {
@@ -43,27 +66,20 @@ const ChatComponent = () => {
         })
       });
 
-      if (!response.ok) throw new Error('Error en la respuesta del servidor');
+      if (!response.ok) throw new Error('Error en el servidor');
       
       const data = await response.json();
-
-      // Actualizar el procesamiento de la respuesta
-      if (data.parts) {
-        const newMessages = Object.values(data.parts).map(text => ({
-          text,
-          sent: false
-        }));
-        setMessages(prev => [...prev, ...newMessages]);
+      
+      if (data.status !== "processing") {
+        throw new Error('Estado inesperado');
       }
-
-      setInputMessage('');
 
     } catch (error) {
       console.error('Error:', error);
-      setMessages(prev => [...prev, { 
-        text: "Error enviando el mensaje. Intenta nuevamente.", 
-        sent: false 
-      }]);
+      setMessages(prev => [
+        ...prev.filter(msg => msg.text !== '...'),
+        { text: "⚠️ Error de conexión", sent: false }
+      ]);
     } finally {
       setIsLoading(false);
     }

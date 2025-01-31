@@ -29,7 +29,10 @@ const ChatComponent = () => {
         if (data.status === 'completed' && data.message) {
           setMessages(prev => [
             ...prev.filter(msg => msg.text !== '...'),
-            { text: data.message, sent: false }
+            { 
+              text: data.message.content || Object.values(data.message.parts).join('\n'),
+              sent: false
+            }
           ]);
         }
       } catch (error) {
@@ -92,7 +95,7 @@ const ChatComponent = () => {
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`mb-2 p-2 rounded-lg ${
+              className={`mb-2 p-2 rounded-lg whitespace-pre-line ${
                 msg.sent
                   ? 'bg-primary text-primary-foreground ml-auto'
                   : 'bg-muted'

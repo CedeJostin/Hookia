@@ -24,7 +24,7 @@ export async function POST(request) {
         body: JSON.stringify({
           conversationId,
           message,
-          callbackUrl: `${process.env.NEXTAUTH_URL}/api/respuestaFinal`
+          callbackUrl: `https://q-trust-ai.vercel.app/api/respuestaFinal`
         })
       }).catch(error => console.error('Error enviando a n8n:', error));
   

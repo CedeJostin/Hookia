@@ -17,31 +17,44 @@ const ChatComponent = () => {
     setConversationId(uuidv4());
   }, []);
 
-  // Polling para verificar respuestas
-  useEffect(() => {
-    if (!conversationId) return;
-
-    const interval = setInterval(async () => {
-      try {
-        const response = await fetch(`/api/respuestaFinal?conversationId=${conversationId}`);
-        const data = await response.json();
-        
-        if (data.status === 'completed' && data.message) {
-          setMessages(prev => [
-            ...prev.filter(msg => msg.text !== '...'),
-            { 
-              text: data.message.content || Object.values(data.message.parts).join('\n'),
-              sent: false
-            }
-          ]);
-        }
-      } catch (error) {
-        console.error('Error polling:', error);
+  // Actualiza el useEffect de polling
+useEffect(() => {
+  const pollResponse = async () => {
+    try {
+      const response = await fetch(`/api/respuestaFinal?conversationId=${conversationId}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    }, 3000);
+      
+      const data = await response.json();
+      
+      if (data.error) {
+        console.error('Error del servidor:', data.error);
+        return;
+      }
 
-    return () => clearInterval(interval);
-  }, [conversationId]);
+      if (data.status === 'completed' && data.message) {
+        setMessages(prev => [
+          ...prev.filter(msg => msg.text !== '...'),
+          { 
+            text: data.message.content || Object.values(data.message.parts).join('\n'),
+            sent: false
+          }
+        ]);
+      }
+    } catch (error) {
+      console.error('Error en polling:', error);
+      setMessages(prev => [
+        ...prev.filter(msg => msg.text !== '...'),
+        { text: "⚠️ Error actualizando estado", sent: false }
+      ]);
+    }
+  };
+  
+  const interval = setInterval(pollResponse, 3000);
+  return () => clearInterval(interval);
+}, [conversationId]);
 
   const sendMessage = async (e) => {
     e.preventDefault();

@@ -11,92 +11,62 @@ const ChatComponent = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [conversationId, setConversationId] = useState('');
+  const [conversationId] = useState(() => uuidv4());
 
   useEffect(() => {
-    setConversationId(uuidv4());
-  }, []);
+    let intervalId;
+    
+    const checkResponse = async () => {
+      try {
+        const response = await fetch(`/api/respuestaFinal?conversationId=${conversationId}`);
+        const data = await response.json();
+        
+        if (data.status === 'completed' && data.message) {
+          const parts = Object.values(data.message);
+          setMessages(prev => [
+            ...prev.filter(msg => msg.text !== '...'),
+            { text: parts.join('\n'), sent: false }
+          ]);
+          clearInterval(intervalId);
+        }
+      } catch (error) {
+        console.error('Error polling:', error);
+      }
+    };
 
-  // Actualiza el useEffect de polling
-useEffect(() => {
-  const pollResponse = async () => {
-    try {
-      const response = await fetch(`/api/respuestaFinal?conversationId=${conversationId}`);
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      
-      if (data.error) {
-        console.error('Error del servidor:', data.error);
-        return;
-      }
-
-      if (data.status === 'completed' && data.message) {
-        setMessages(prev => [
-          ...prev.filter(msg => msg.text !== '...'),
-          { 
-            text: data.message.content || Object.values(data.message.parts).join('\n'),
-            sent: false
-          }
-        ]);
-      }
-    } catch (error) {
-      console.error('Error en polling:', error);
-      setMessages(prev => [
-        ...prev.filter(msg => msg.text !== '...'),
-        { text: "⚠️ Error actualizando estado", sent: false }
-      ]);
+    if (isLoading) {
+      intervalId = setInterval(checkResponse, 1000);
     }
-  };
-  
-  const interval = setInterval(pollResponse, 3000);
-  return () => clearInterval(interval);
-}, [conversationId]);
+
+    return () => clearInterval(intervalId);
+  }, [isLoading, conversationId]);
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    if (!inputMessage.trim() || isLoading || !conversationId) return;
+    if (!inputMessage.trim() || isLoading) return;
 
     setIsLoading(true);
+    setMessages(prev => [
+      ...prev,
+      { text: inputMessage, sent: true },
+      { text: '...', sent: false }
+    ]);
     setInputMessage('');
-    
-    try {
-      // Mensaje optimista del usuario
-      setMessages(prev => [...prev, { text: inputMessage, sent: true }]);
-      
-      // Mensaje de carga del bot
-      setMessages(prev => [...prev, { text: '...', sent: false }]);
 
-      const response = await fetch('/api/process-messages', {
+    try {
+      await fetch('/api/process-messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           conversationId,
-          message: {
-            content: inputMessage,
-            timestamp: new Date().toISOString()
-          }
+          message: { content: inputMessage }
         })
       });
-
-      if (!response.ok) throw new Error('Error en el servidor');
-      
-      const data = await response.json();
-      
-      if (data.status !== "processing") {
-        throw new Error('Estado inesperado');
-      }
-
     } catch (error) {
-      console.error('Error:', error);
       setMessages(prev => [
         ...prev.filter(msg => msg.text !== '...'),
-        { text: "⚠️ Error de conexión", sent: false }
+        { text: '⚠️ Error de conexión', sent: false }
       ]);
-    } finally {
       setIsLoading(false);
     }
   };

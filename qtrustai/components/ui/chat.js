@@ -69,6 +69,9 @@ const ChatComponent = () => {
       ]);
       setIsLoading(false);
     }
+
+    setIsLoading(false);
+
   };
 
   return (

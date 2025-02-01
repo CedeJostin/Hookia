@@ -15,6 +15,7 @@ const ChatComponent = () => {
 
   useEffect(() => {
     let intervalId;
+    let timeoutId;
     
     const checkResponse = async () => {
       try {
@@ -27,19 +28,37 @@ const ChatComponent = () => {
             ...prev.filter(msg => msg.text !== '...'),
             { text: parts.join('\n'), sent: false }
           ]);
+          setIsLoading(false); // Añadido: establecer isLoading a false
           clearInterval(intervalId);
         }
       } catch (error) {
         console.error('Error polling:', error);
+        setIsLoading(false); // Añadido: manejar error
+        setMessages(prev => [
+          ...prev.filter(msg => msg.text !== '...'),
+          { text: '⚠️ Error al obtener respuesta', sent: false }
+        ]);
       }
     };
 
     if (isLoading) {
       intervalId = setInterval(checkResponse, 1000);
+      // Añadido: timeout de seguridad
+      timeoutId = setTimeout(() => {
+        clearInterval(intervalId);
+        setIsLoading(false);
+        setMessages(prev => [
+          ...prev.filter(msg => msg.text !== '...'),
+          { text: '⚠️ Tiempo de espera agotado', sent: false }
+        ]);
+      }, 30000);
     }
 
-    return () => clearInterval(intervalId);
-  }, [isLoading, conversationId]);
+    return () => {
+      clearInterval(intervalId);
+      clearTimeout(timeoutId);
+    };
+}, [isLoading, conversationId]);
 
   const sendMessage = async (e) => {
     e.preventDefault();

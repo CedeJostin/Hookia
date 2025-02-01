@@ -94,36 +94,36 @@ const ChatComponent = () => {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-md mx-auto bg-slate-50 shadow-xl">
       <CardContent className="p-4">
-        <div className="bg-gray-50 rounded-lg mb-4 min-h-[300px] max-h-[500px] overflow-y-auto p-4">
+        <div className="bg-white rounded-lg mb-4 min-h-[300px] max-h-[500px] overflow-y-auto p-4 shadow-inner">
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`mb-2 p-2 rounded-lg whitespace-pre-line ${
+              className={`mb-2 p-3 rounded-lg whitespace-pre-line ${
                 msg.sent
-                  ? 'bg-primary text-primary-foreground ml-auto'
-                  : 'bg-muted'
-              } max-w-[80%] transition-all duration-200 ease-in-out`}
+                  ? 'bg-navy-600 text-white ml-auto'
+                  : 'bg-gray-100 border border-gray-200'
+              } max-w-[80%] transition-all duration-200 ease-in-out shadow-sm`}
             >
               {msg.text}
             </div>
           ))}
         </div>
-
+  
         <form onSubmit={sendMessage} className="flex gap-2">
           <Input
             type="text"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             placeholder="Escribe un mensaje..."
-            className="flex-1"
+            className="flex-1 border-navy-200 focus:border-navy-400 focus:ring-navy-400"
             disabled={isLoading}
           />
           <Button 
             type="submit" 
             disabled={isLoading}
-            className="min-w-[100px]"
+            className="min-w-[100px] bg-navy-600 hover:bg-navy-700 text-white"
           >
             {isLoading ? 'Enviando...' : 'Enviar'}
           </Button>

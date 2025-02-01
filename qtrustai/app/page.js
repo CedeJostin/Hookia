@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { BotIcon as Robot, Users, Lightbulb, Target } from 'lucide-react'
+import { BotIcon as  Users, Lightbulb, Target } from 'lucide-react'
 import "./globals.css"
 import ChatComponent from '../components/ui/chat';
 
@@ -10,8 +10,7 @@ export default function Page() {
       <div className="flex flex-col min-h-screen">
         <header className="px-4 lg:px-6 h-14 flex items-center">
           <Link className="flex items-center justify-center" href="/">
-            <Robot className="h-6 w-6 mr-2" />
-            <span className="font-bold text-lg">TrustIA</span>
+            <span className="font-bold text-lg">HookIA</span>
           </Link>
           <nav className="ml-auto flex gap-4 sm:gap-6">
             <Link className="text-sm font-medium hover:underline underline-offset-4" href="/">
@@ -20,7 +19,7 @@ export default function Page() {
             <Link className="text-sm font-medium hover:underline underline-offset-4" href="/nosotros">
               Nosotros
             </Link>
-            <Link className="text-sm font-medium hover:underline underline-offset-4" href="/contacto">
+            <Link className="text-sm font-medium hover:underline underline-offset-4" href="/contactanos">
               Contacto
             </Link>
           </nav>
@@ -30,7 +29,7 @@ export default function Page() {
             <div className="container mx-auto px-4 md:px-6">
               <div className="flex flex-col items-center space-y-4 text-center">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  Sobre TrustIA
+                  Sobre HookIA
                 </h1>
                 <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
                   Somos pioneros en la automatización inteligente, impulsando el futuro de los negocios con IA avanzada.
@@ -78,7 +77,7 @@ export default function Page() {
                   Únete a la Revolución de la IA
                 </h2>
                 <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
-                  Descubre cómo TrustIA puede transformar tu negocio con soluciones de IA personalizadas.
+                  Descubre cómo HookIA puede transformar tu negocio con soluciones de IA personalizadas.
                 </p>
                 <Button asChild>
                   <Link href="/contacto">Contáctanos</Link>

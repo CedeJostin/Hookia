@@ -16,4 +16,4 @@ const nextConfig = {
   }
   
   // Usa 'export default' en lugar de module.exports
-  export default nextConfig;
+  module.exports = nextConfig

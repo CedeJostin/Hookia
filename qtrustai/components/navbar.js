@@ -15,7 +15,7 @@ export default function Navbar() {
         >
             <Link href="/" className="flex items-center space-x-2">
                 <Bot className="w-8 h-8 text-purple-500" />
-                <span className="text-white font-medium text-xl">HookIA</span>
+                <span className="text-white font-medium text-xl">Hookia</span>
             </Link>
 
             <div className="hidden md:flex items-center space-x-8">

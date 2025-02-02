@@ -3,9 +3,9 @@
 
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
 const ChatComponent = () => {
   const [messages, setMessages] = useState([]);
@@ -60,7 +60,7 @@ const ChatComponent = () => {
     };
 }, [isLoading, conversationId]);
 
-  const sendMessage = async (e) => {
+  const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!inputMessage.trim() || isLoading) return;
 
@@ -93,44 +93,40 @@ const ChatComponent = () => {
 
   };
 
+
+
   return (
-    <Card className="w-full max-w-md mx-auto bg-slate-50 shadow-xl">
-      <CardContent className="p-4">
-        <div className="bg-white rounded-lg mb-4 min-h-[300px] max-h-[500px] overflow-y-auto p-4 shadow-inner">
-          {messages.map((msg, index) => (
+    <Card className="w-full max-w-md mx-auto">
+      <CardHeader>
+        <CardTitle>Chat con HookIA</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {messages.map((message, index) => (
+          <div key={index} className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}>
             <div
-              key={index}
-              className={`mb-2 p-3 rounded-lg whitespace-pre-line ${
-                msg.sent
-                  ? 'bg-navy-600 text-white ml-auto'
-                  : 'bg-gray-100 border border-gray-200'
-              } max-w-[80%] transition-all duration-200 ease-in-out shadow-sm`}
+              className={`rounded-lg px-4 py-2 ${message.isUser ? "bg-purple-600 text-white" : "bg-gray-200 text-black"}`}
             >
-              {msg.text}
+              {message.text}
             </div>
-          ))}
-        </div>
-  
-        <form onSubmit={sendMessage} className="flex gap-2">
+          </div>
+        ))}
+      </CardContent>
+      <CardFooter>
+        <div className="flex w-full space-x-2">
           <Input
             type="text"
+            placeholder="Escribe tu mensaje..."
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder="Escribe un mensaje..."
-            className="flex-1 border-navy-200 focus:border-navy-400 focus:ring-navy-400"
-            disabled={isLoading}
+            onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
           />
-          <Button 
-            type="submit" 
-            disabled={isLoading}
-            className="min-w-[100px] bg-navy-600 hover:bg-navy-700 text-white"
-          >
-            {isLoading ? 'Enviando...' : 'Enviar'}
-          </Button>
-        </form>
-      </CardContent>
+          <Button onClick={handleSendMessage}>Enviar</Button>
+        </div>
+      </CardFooter>
     </Card>
-  );
-};
+  )
+}
+
+
 
 export default ChatComponent;

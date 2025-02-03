@@ -11,28 +11,45 @@ export default function NosotrosPage() {
     "name": "HookIA",
     "description": "Empresa especializada en soluciones de IA para negocios",
     "foundingDate": "2023",
-    "url": "https://hookia.com/nosotros"
+    "url": "https://hookia.com/nosotros",
+    "inLanguage": "es-ES",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "ES"
+    }
   }
 
   return (
     <>
-      <Head>
+     <Head>
+        <html lang="es" /> {/* Declaración explícita del idioma español */}
         <title>Sobre HookIA | Transformando Empresas con IA Avanzada</title>
         <meta name="description" content="Descubre HookIA, líder en soluciones de IA empresarial. Conoce nuestro equipo, misión y valores que impulsan la innovación tecnológica desde 2023." />
         <meta name="keywords" content="HookIA, inteligencia artificial, IA empresarial, automatización, innovación tecnológica" />
         
-        {/* Open Graph / Social Media */}
+        {/* Configuración regional e idioma */}
+        <meta httpEquiv="content-language" content="es-ES" />
+        <meta property="og:locale" content="es_ES" />
+        <meta property="og:locale:alternate" content="es_CR" />
+        
+        {/* Open Graph */}
         <meta property="og:title" content="Sobre HookIA | Transformando Empresas con IA Avanzada" />
         <meta property="og:description" content="Descubre HookIA, líder en soluciones de IA empresarial. Conoce nuestro equipo, misión y valores que impulsan la innovación tecnológica." />
         <meta property="og:type" content="website" />
-        <meta property="og:locale" content="es_ES" />
+        <meta property="og:url" content="https://hookia.com/nosotros" />
         
+        {/* Canonical y alternativas de idioma */}
+        <link rel="canonical" href="https://hookia.com/nosotros" hrefLang="es-ES" />
+        <link rel="alternate" href="https://hookia.com/nosotros" hrefLang="es-ES" />
+        <link rel="alternate" href="https://cr.hookia.com/nosotros" hrefLang="es-CR" />
+        <link rel="alternate" href="https://hookia.com/nosotros" hrefLang="x-default" />
+
         {/* Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify(schema)}
         </script>
       </Head>
-
+      
       <main className="min-h-screen bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden text-white">
         {/* Ambient background with moving particles */}
         <div className="h-full w-full absolute inset-0 z-0" aria-hidden="true">

@@ -8,30 +8,79 @@ import { Users, Lightbulb, Target } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Metadata } from "next"
+import Head from "next/head"
 
 export const metadata = {
+  metadataBase: new URL('https://hookia.com'),
   title: "Hookia | Automatización Inteligente con IA para Negocios",
   description: "Impulsa tu empresa con soluciones de IA avanzada. Automatización de procesos, análisis predictivo y toma de decisiones inteligentes para transformar tu negocio.",
   keywords: ["automatización inteligente", "IA para negocios", "soluciones de IA", "transformación digital"],
   openGraph: {
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }]
+    type: 'website',
+    locale: 'es_ES',
+    alternateLocale: ['es_CR'],
+    url: 'https://hookia.com',
+    siteName: 'Hookia',
+    images: [{ 
+      url: "/og-image.jpg", 
+      width: 1200, 
+      height: 630,
+      alt: 'Hookia - Automatización Inteligente con IA'
+    }]
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+    },
+  },
+  alternates: {
+    canonical: 'https://hookia.com',
+    languages: {
+      'es-ES': 'https://hookia.com',
+      'es-CR': 'https://cr.hookia.com'
+    }
   }
 }
 
 export default function Home() {
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "WebSite",
+    "@type": "Organization",
     "name": "Hookia",
-    "url": "https://tudominio.com",
+    "url": "https://hookia.com",
+    "logo": "https://hookia.com/logo.png",
+    "description": "Empresa líder en soluciones de IA y automatización inteligente para negocios",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "ES"
+    },
+    "sameAs": [
+      "https://linkedin.com/company/hookia",
+      "https://twitter.com/hookia"
+    ],
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "{search_term_string}",
+      "target": "https://hookia.com/buscar?q={search_term_string}",
       "query-input": "required name=search_term_string"
-    }
+    },
+    "inLanguage": "es-ES"
   }
 
   return (
+    <>
+     <Head>
+        <html lang="es" />
+        <meta httpEquiv="content-language" content="es-ES" />
+        <link rel="canonical" href="https://hookia.com" hrefLang="es-ES" />
+        <link rel="alternate" href="https://hookia.com" hrefLang="es-ES" />
+        <link rel="alternate" href="https://cr.hookia.com" hrefLang="es-CR" />
+        <link rel="alternate" href="https://hookia.com" hrefLang="x-default" />
+      </Head>
+    
     <main className="min-h-screen bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden text-white">
       {/* Ambient background with moving particles */}
       <div className="h-full w-full absolute inset-0 z-0">
@@ -144,7 +193,12 @@ export default function Home() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </div>
+      <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
     </main>
+    </>
   )
 }
 

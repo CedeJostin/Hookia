@@ -17,13 +17,14 @@ export default function ContactoPage() {
     "name": "Contacto - HookIA",
     "description": "Contacta con HookIA para transformar tu negocio con IA",
     "url": "https://hookia.com/contacto",
+    "inLanguage": "es-ES",
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+34 123 456 789",
+      "telephone": "+86370703",
       "contactType": "customer service",
-      "email": "info@hookia.com",
+      "email": "hookia@hookia.com",
       "areaServed": "ES",
-      "availableLanguage": "Spanish"
+      "availableLanguage": ["es", "es-ES"]
     },
     "location": {
       "@type": "Place",
@@ -40,21 +41,34 @@ export default function ContactoPage() {
 
   return (
     <>
-      <Head>
+       <Head>
+        <html lang="es" /> {/* Declaración explícita del idioma español */}
         <title>Contacta con HookIA | Soluciones de IA para tu Empresa</title>
         <meta name="description" content="¿Necesitas ayuda con soluciones de IA? Contacta con HookIA. Ofrecemos atención personalizada y respuestas a todas tus preguntas sobre transformación digital." />
         <meta name="keywords" content="contacto HookIA, IA empresarial, atención al cliente, consultoría IA, Madrid" />
         
-        {/* Open Graph / Social Media */}
+        {/* Configuración regional e idioma */}
+        <meta httpEquiv="content-language" content="es-ES" />
+        <meta property="og:locale" content="es_ES" />
+        <meta property="og:locale:alternate" content="es_CR" />
+        
+        {/* Open Graph */}
         <meta property="og:title" content="Contacta con HookIA | Soluciones de IA para tu Empresa" />
         <meta property="og:description" content="¿Necesitas ayuda con soluciones de IA? Contacta con HookIA para transformar tu negocio." />
         <meta property="og:type" content="website" />
-        <meta property="og:locale" content="es_ES" />
         
         {/* Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify(schema)}
         </script>
+
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://hookia.com/contacto" hrefLang="es-ES" />
+        
+        {/* Alternate URLs para diferentes regiones */}
+        <link rel="alternate" href="https://hookia.com/contacto" hrefLang="es-ES" />
+        <link rel="alternate" href="https://cr.hookia.com/contacto" hrefLang="es-CR" />
+        <link rel="alternate" href="https://hookia.com/contacto" hrefLang="x-default" />
       </Head>
 
       <main className="min-h-screen bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden text-white">

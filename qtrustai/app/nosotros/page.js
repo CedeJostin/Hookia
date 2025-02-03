@@ -112,8 +112,8 @@ export default function NosotrosPage() {
               <div className="flex flex-col items-center space-y-4 text-center">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Nuestra Historia</h2>
                 <p className="mx-auto max-w-[700px] text-gray-400 md:text-xl">
-                  Fundada en 2023, HookIA nació de la visión de un grupo de emprendedores apasionados por la IA y su
-                  potencial para transformar las empresas. Desde entonces, hemos estado a la vanguardia de la innovación
+                  Fundada en 2024, HookIA nació de la visión de un grupo de emprendedores apasionados por la IA y su
+                  potencial para transformar las empresas. Desde entonces, hemos estado a la pendientes de la innovación
                   en IA, desarrollando soluciones que permiten a las empresas de todos los tamaños aprovechar el poder de
                   la inteligencia artificial para impulsar su crecimiento y eficiencia.
                 </p>

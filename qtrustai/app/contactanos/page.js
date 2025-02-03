@@ -1,3 +1,4 @@
+import Head from "next/head"
 import Navbar from "@/components/navbar"
 import { SparklesCore } from "@/components/sparkles"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
@@ -9,89 +10,173 @@ import ChatComponent from "@/components/ui/chat"
 import Link from "next/link"
 
 export default function ContactoPage() {
+  // Schema.org structured data
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contacto - HookIA",
+    "description": "Contacta con HookIA para transformar tu negocio con IA",
+    "url": "https://hookia.com/contacto",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+34 123 456 789",
+      "contactType": "customer service",
+      "email": "info@hookia.com",
+      "areaServed": "ES",
+      "availableLanguage": "Spanish"
+    },
+    "location": {
+      "@type": "Place",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Costa Rica", 
+        "addressRegion": "San José Heredia Alajuela Cartago Guanacaste Puntarenas Limón",
+        "addressLocality": "Costa Rica",
+        "postalCode": "40501",
+        "addressCountry": "CR"
+      }
+    }
+  }
+
   return (
-    <main className="min-h-screen bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden text-white">
-      {/* Ambient background with moving particles */}
-      <div className="h-full w-full absolute inset-0 z-0">
-        <SparklesCore
-          id="tsparticlesfullpage"
-          background="transparent"
-          minSize={0.6}
-          maxSize={1.4}
-          particleDensity={100}
-          className="w-full h-full"
-          particleColor="#FFFFFF"
-        />
-      </div>
+    <>
+      <Head>
+        <title>Contacta con HookIA | Soluciones de IA para tu Empresa</title>
+        <meta name="description" content="¿Necesitas ayuda con soluciones de IA? Contacta con HookIA. Ofrecemos atención personalizada y respuestas a todas tus preguntas sobre transformación digital." />
+        <meta name="keywords" content="contacto HookIA, IA empresarial, atención al cliente, consultoría IA, Madrid" />
+        
+        {/* Open Graph / Social Media */}
+        <meta property="og:title" content="Contacta con HookIA | Soluciones de IA para tu Empresa" />
+        <meta property="og:description" content="¿Necesitas ayuda con soluciones de IA? Contacta con HookIA para transformar tu negocio." />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="es_ES" />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify(schema)}
+        </script>
+      </Head>
 
-      <div className="relative z-10">
-        <Navbar />
+      <main className="min-h-screen bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden text-white">
+        {/* Ambient background with moving particles */}
+        <div className="h-full w-full absolute inset-0 z-0" aria-hidden="true">
+          <SparklesCore
+            id="tsparticlesfullpage"
+            background="transparent"
+            minSize={0.6}
+            maxSize={1.4}
+            particleDensity={100}
+            className="w-full h-full"
+            particleColor="#FFFFFF"
+          />
+        </div>
 
-        <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                Contáctanos
-              </h1>
-              <p className="mx-auto max-w-[700px] text-gray-400 md:text-xl">
-                Estamos aquí para responder tus preguntas y ayudarte a transformar tu negocio con IA.
-              </p>
+        <div className="relative z-10">
+          <Navbar />
+
+          {/* Hero Section */}
+          <section className="w-full py-12 md:py-24 lg:py-32" aria-label="Encabezado de contacto">
+            <div className="container mx-auto px-4 md:px-6">
+              <div className="flex flex-col items-center space-y-4 text-center">
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+                  Contáctanos
+                </h1>
+                <p className="mx-auto max-w-[700px] text-gray-400 md:text-xl">
+                  Estamos aquí para responder tus preguntas y ayudarte a transformar tu negocio con IA.
+                </p>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <Card className="bg-white/5 backdrop-blur-sm border-white/10">
-                <CardContent className="p-6">
-                  <h2 className="text-2xl font-bold mb-4 mt-4" >Envíanos un mensaje</h2>
-                  <h3 className="mb-3">Intenta con &quot;Quiero Agendar una cita&quot;</h3>
-                  <ChatComponent />
-                </CardContent>
-              </Card>
+          {/* Contact Section */}
+          <section className="w-full py-12 md:py-24 lg:py-32" aria-label="Formulario e información de contacto">
+            <div className="container mx-auto px-4 md:px-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Chat Component Card */}
+                <Card className="bg-white/5 backdrop-blur-sm border-white/10">
+                  <CardContent className="p-6">
+                    <h2 className="text-2xl font-bold mb-4 mt-4">Envíanos un mensaje</h2>
+                    <h3 className="mb-3">Intenta con &quot;Quiero Agendar una cita&quot;</h3>
+                    <ChatComponent />
+                  </CardContent>
+                </Card>
 
-              <Card className="bg-white/5 backdrop-blur-sm border-white/10">
-                <CardContent className="p-6">
-                  <h2 className="text-2xl font-bold mb-4 mt-4">Información de contacto</h2>
-                  <div className="space-y-4">
-                    <ContactInfo icon={<Mail className="h-6 w-6 text-purple-500" />} text="info@hookia.com" />
-                    <ContactInfo icon={<Phone className="h-6 w-6 text-purple-500" />} text="+34 123 456 789" />
-                    <ContactInfo
-                      icon={<MapPin className="h-6 w-6 text-purple-500" />}
-                      text="Calle Innovación, 123, 28001 Madrid, España"
-                    />
-                  </div>
-                </CardContent>
-                <CardFooter className="p-6 pt-0">
-                  <p className="text-sm text-gray-400">Horario de atención: Lunes a Viernes, 9:00 AM - 6:00 PM (CET)</p>
-                </CardFooter>
-              </Card>
+                {/* Contact Information Card */}
+                <Card className="bg-white/5 backdrop-blur-sm border-white/10">
+                  <CardContent className="p-6">
+                    <h2 className="text-2xl font-bold mb-4 mt-4">Información de contacto</h2>
+                    <div className="space-y-4">
+                      <ContactInfo 
+                        icon={<Mail className="h-6 w-6 text-purple-500" aria-hidden="true" />} 
+                        text="info@hookia.com"
+                        type="email"
+                      />
+                      <ContactInfo 
+                        icon={<Phone className="h-6 w-6 text-purple-500" aria-hidden="true" />} 
+                        text="+34 123 456 789"
+                        type="phone"
+                      />
+                      <ContactInfo
+                        icon={<MapPin className="h-6 w-6 text-purple-500" aria-hidden="true" />}
+                        text="Calle Innovación, 123, 28001 Madrid, España"
+                        type="address"
+                      />
+                    </div>
+                  </CardContent>
+                  <CardFooter className="p-6 pt-0">
+                    <p className="text-sm text-gray-400">
+                      Horario de atención: Lunes a Viernes, 9:00 AM - 6:00 PM (CET)
+                    </p>
+                  </CardFooter>
+                </Card>
+              </div>
             </div>
-          </div>
-        </section>
-        <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-gray-800">
-          <p className="text-xs text-gray-400">© 2024 Hookia. Todos los derechos reservados.</p>
-          <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-            <Link className="text-xs hover:underline underline-offset-4 text-gray-400" href="#">
-              Términos de Servicio
-            </Link>
-            <Link className="text-xs hover:underline underline-offset-4 text-gray-400" href="#">
-              Privacidad
-            </Link>
-          </nav>
-        </footer>
-      </div>
-    </main>
+          </section>
+
+          {/* Footer */}
+          <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-gray-800">
+            <p className="text-xs text-gray-400">© 2024 Hookia. Todos los derechos reservados.</p>
+            <nav className="sm:ml-auto flex gap-4 sm:gap-6" aria-label="Enlaces legales">
+              <Link className="text-xs hover:underline underline-offset-4 text-gray-400" href="#">
+                Términos de Servicio
+              </Link>
+              <Link className="text-xs hover:underline underline-offset-4 text-gray-400" href="#">
+                Privacidad
+              </Link>
+            </nav>
+          </footer>
+        </div>
+      </main>
+    </>
   )
 }
 
-function ContactInfo({ icon, text }) {
+function ContactInfo({ icon, text, type }) {
+  const getAriaLabel = () => {
+    switch(type) {
+      case 'email':
+        return 'Correo electrónico';
+      case 'phone':
+        return 'Teléfono';
+      case 'address':
+        return 'Dirección';
+      default:
+        return 'Información de contacto';
+    }
+  }
+
   return (
-    <div className="flex items-center space-x-3">
+    <div className="flex items-center space-x-3" aria-label={getAriaLabel()}>
       {icon}
-      <span className="text-gray-300">{text}</span>
+      <span className="text-gray-300">
+        {type === 'email' ? (
+          <a href={`mailto:${text}`} className="hover:underline">{text}</a>
+        ) : type === 'phone' ? (
+          <a href={`tel:${text.replace(/\s/g, '')}`} className="hover:underline">{text}</a>
+        ) : (
+          text
+        )}
+      </span>
     </div>
   )
 }
-

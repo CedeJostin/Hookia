@@ -5,7 +5,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, Waypoints } from "lucide-react"
 import ChatComponent from "@/components/ui/chat"
 import Link from "next/link"
 
@@ -122,26 +122,31 @@ export default function ContactoPage() {
                     <div className="space-y-4">
                       <ContactInfo 
                         icon={<Mail className="h-6 w-6 text-purple-500" aria-hidden="true" />} 
-                        text="info@hookia.com"
+                        text="hookia@hookia.com"
                         type="email"
                       />
                       <ContactInfo 
                         icon={<Phone className="h-6 w-6 text-purple-500" aria-hidden="true" />} 
-                        text="+34 123 456 789"
+                        text="+506 8637 0703"
                         type="phone"
                       />
-                      <ContactInfo
-                        icon={<MapPin className="h-6 w-6 text-purple-500" aria-hidden="true" />}
-                        text="Calle Innovación, 123, 28001 Madrid, España"
-                        type="address"
+                     <ContactInfo 
+                        icon={<Waypoints className="h-6 w-6 text-purple-500" aria-hidden="true" />}
+                        text={
+                          <a 
+                            href="https://www.instagram.com/learnusprod/" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="hover:text-purple-400 cursor-pointer"
+                          >
+                            @hookia
+                          </a>
+                        }
+                        type="instagram"
                       />
                     </div>
                   </CardContent>
-                  <CardFooter className="p-6 pt-0">
-                    <p className="text-sm text-gray-400">
-                      Horario de atención: Lunes a Viernes, 9:00 AM - 6:00 PM (CET)
-                    </p>
-                  </CardFooter>
+                 
                 </Card>
               </div>
             </div>

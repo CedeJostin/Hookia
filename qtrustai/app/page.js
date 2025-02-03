@@ -130,17 +130,17 @@ export default function Home() {
           <div className="container mx-auto px-4 md:px-6 relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <FeatureCard
-                icon={<Users className="h-12 w-12 mb-4 text-purple-500" />}
-                title="Nuestro Equipo"
-                description="Un grupo diverso de expertos en IA, ingeniería y negocios, unidos por la pasión por la innovación."
+                icon={<Users className="h-12 w-12 mb-4 text-purple-500 mt-5" />}
+                title="Automatización Avanzada"
+                description="Tecnología de vanguardia que impulsa eficiencia operativa y reduce costos hasta en un 60%."
               />
               <FeatureCard
-                icon={<Lightbulb className="h-12 w-12 mb-4 text-purple-500" />}
-                title="Nuestra Misión"
-                description="Democratizar la IA y la automatización para empresas de todos los tamaños, impulsando la eficiencia y el crecimiento."
+                icon={<Lightbulb className="h-12 w-12 mb-4 text-purple-500 mt-5" />}
+                title="Crecimiento Inteligente"
+                description="Estrategias basadas en IA para escalar negocios con innovación sostenible."
               />
               <FeatureCard
-                icon={<Target className="h-12 w-12 mb-4 text-purple-500" />}
+                icon={<Target className="h-12 w-12 mb-4 text-purple-500 mt-5" />}
                 title="Nuestros Valores"
                 description="Innovación, integridad y compromiso con el éxito de nuestros clientes guían cada decisión que tomamos."
               />

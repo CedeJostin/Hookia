@@ -68,14 +68,16 @@ export default function NosotrosPage() {
           <Navbar />
           
           {/* Hero Section */}
-          <section className="w-full py-12 md:py-24 lg:py-32" aria-label="Introducción">
+          <section className="w-full py-12 md:py-24 lg:py-32">
             <div className="container mx-auto px-4 md:px-6">
               <div className="flex flex-col items-center space-y-4 text-center">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  Sobre Hookia
-                </h1>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+                  Hookia: Innovación en Automatización Empresarial
+                </h2>
                 <p className="mx-auto max-w-[700px] text-gray-400 md:text-xl">
-                  Descubre quiénes somos y nuestra misión de transformar el mundo empresarial con IA avanzada.
+                  Especialistas en soluciones avanzadas de IA para negocios. Transformamos procesos complejos en 
+                  <span className="text-purple-400 font-semibold"> flujos de trabajo eficientes</span>, impulsando 
+                  <span className="text-purple-400 font-semibold"> crecimiento medible</span> y escalabilidad sostenible.
                 </p>
               </div>
             </div>

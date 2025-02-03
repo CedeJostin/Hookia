@@ -33,7 +33,7 @@ export default function Home() {
           <div className="container mx-auto px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                Sobre HookIA
+                Sobre Hookia
               </h2>
               <p className="mx-auto max-w-[700px] text-gray-400 md:text-xl">
                 Somos pioneros en la automatización inteligente, impulsando el futuro de los negocios con IA avanzada.
@@ -66,22 +66,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                Únete a la Revolución de la IA
-              </h2>
-              <p className="mx-auto max-w-[600px] text-gray-400 md:text-xl">
-                Descubre cómo HookIA puede transformar tu negocio con soluciones de IA personalizadas.
-              </p>
-              <Button asChild className="bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-lg">
-                <Link href="/contacto">Contáctanos</Link>
-              </Button>
-            </div>
-          </div>
-        </section>
+       
 
         {/* Chat Section */}
         <section className="w-full py-12 md:py-24 lg:py-32 relative overflow-hidden">
@@ -99,7 +84,7 @@ export default function Home() {
 
         {/* Footer */}
         <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-gray-800">
-          <p className="text-xs text-gray-400">© 2024 HookIA. Todos los derechos reservados.</p>
+          <p className="text-xs text-gray-400">© 2024 Hookia. Todos los derechos reservados.</p>
           <nav className="sm:ml-auto flex gap-4 sm:gap-6">
             <Link className="text-xs hover:underline underline-offset-4 text-gray-400" href="#">
               Términos de Servicio

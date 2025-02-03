@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { FileText, Sparkles } from "lucide-react"
 import { RoboAnimation } from "@/components/robo-animation"
+import Link from "next/link"
 
 export default function Hero() {
   return (
@@ -36,16 +37,18 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
+            <Link href="/contactanos">
             <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white px-8 p-3 rounded-lg">
               Empieza Ahora
             </Button>
+            </Link>
            
           </motion.div>
         </div>
       </div>
 
       {/* Animated robot */}
-      <div className="absolute bottom-0 right-0 w-96 h-96">
+      <div className="absolute bottom-0 right-0 w-96 h-96 hidden md:block transition-all duration-300">
         <RoboAnimation />
       </div>
     </div>

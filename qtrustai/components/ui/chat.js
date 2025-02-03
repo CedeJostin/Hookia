@@ -96,11 +96,11 @@ const ChatComponent = () => {
 
 
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader>
-        <CardTitle>Chat con HookIA</CardTitle>
+    <Card className="w-full max-w-md mx-auto h-[350px] flex flex-col">
+      <CardHeader className="py-3">
+        <CardTitle>Chat con Hookia</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="flex-1 overflow-y-auto space-y-4">
         {messages.map((message, index) => (
           <div key={index} className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}>
             <div
@@ -111,7 +111,7 @@ const ChatComponent = () => {
           </div>
         ))}
       </CardContent>
-      <CardFooter>
+      <CardFooter className="p-4 ">
         <div className="flex w-full space-x-2">
           <Input
             type="text"
@@ -119,6 +119,7 @@ const ChatComponent = () => {
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+            className="text-black flex-1"
           />
           <Button onClick={handleSendMessage}>Enviar</Button>
         </div>

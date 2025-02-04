@@ -40,8 +40,8 @@ export const SparklesCore = ({
     
         update() {
             // Increased movement speed
-            this.x += this.speedX * 5;
-            this.y += this.speedY * 5;
+            this.x += this.speedX * 2;
+            this.y += this.speedY * 2;
     
             // Screen wrapping
             if (this.x > canvas.width) this.x = 0;

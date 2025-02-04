@@ -41,7 +41,7 @@ Beneficio clave: Libera hasta 15 horas semanales en gestión operativa.`
 Ventas y Facturación Inteligente:
 - Chatbots conversacionales para resolver dudas y recomendar productos
 - Procesamiento de pedidos con notificación instantánea al equipo
-- Facturación electrónica integrada (SAT-compatible y con sistemas como SAP)
+
 
 Beneficio clave: Aumenta las ventas recurrentes un 30% con seguimiento automatizado.`
     },
@@ -54,7 +54,7 @@ Beneficio clave: Aumenta las ventas recurrentes un 30% con seguimiento automatiz
 - Identificación de oportunidades de crecimiento y riesgos operativos
 
 Reportes Ejecutivos Automatizados:
-- Dashboards personalizados con KPIs clave (ventas, inventario, ROI)
+- Reportes de tendecias (ventas, inventario, ROI)
 - Alertas en tiempo real sobre anomalías o desviaciones
 
 Beneficio clave: Reduce un 40% las decisiones improvisadas con insights accionables.`
@@ -66,7 +66,7 @@ Beneficio clave: Reduce un 40% las decisiones improvisadas con insights accionab
       fullDescription: `Control Inteligente de Stock:
 - Actualización automática de inventario (suma/resta con cada venta o compra)
 - Alertas predictivas para reposición y prevención de sobrestock
-- Integración con sistemas POS, ERP y e-commerce
+
 
 Beneficio clave: Minimiza un 90% los errores de inventario y evita ventas perdidas.`
     },

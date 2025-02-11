@@ -14,7 +14,7 @@ export default function Hero() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <h1 className="text-5xl font-bold tracking-tight mb-4">
               <span className="text-white">Hookia:</span> 
-              <span className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent block mt-2">
+              <span className="bg-gradient-to-r from-hookia-turquoise via-hookia-lightBlue to-hookia-purple bg-clip-text text-transparent block mt-2">
                 Automatización Avanzada para el Crecimiento de Negocios
               </span>
             </h1>
@@ -37,7 +37,7 @@ export default function Hero() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Link href="/contactanos">
-              <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white px-8 p-3 rounded-lg">
+              <Button size="lg" className="bg-blue-500 hover:bg-blue-600 text-white px-8 p-3 rounded-lg">
                 Empieza Ahora
               </Button>
             </Link>

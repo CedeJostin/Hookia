@@ -63,12 +63,12 @@ export default function ContactoPage() {
         </script>
 
         {/* Canonical URL */}
-        <link rel="canonical" href="https://hookia.com/contacto" hrefLang="es-ES" />
+        <link rel="canonical" href="https://hookia.es/contacto" hrefLang="es-ES" />
         
         {/* Alternate URLs para diferentes regiones */}
-        <link rel="alternate" href="https://hookia.com/contacto" hrefLang="es-ES" />
-        <link rel="alternate" href="https://cr.hookia.com/contacto" hrefLang="es-CR" />
-        <link rel="alternate" href="https://hookia.com/contacto" hrefLang="x-default" />
+        <link rel="alternate" href="https://hookia.es/contacto" hrefLang="es-ES" />
+        <link rel="alternate" href="https://cr.hookia.es/contacto" hrefLang="es-CR" />
+        <link rel="alternate" href="https://hookia.es/contacto" hrefLang="x-default" />
       </Head>
 
       <main className="min-h-screen bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden text-white">
@@ -121,17 +121,17 @@ export default function ContactoPage() {
                     <h2 className="text-2xl font-bold mb-4 mt-4">Información de contacto</h2>
                     <div className="space-y-4">
                       <ContactInfo 
-                        icon={<Mail className="h-6 w-6 text-purple-500" aria-hidden="true" />} 
+                        icon={<Mail className="h-6 w-6 text-blue-500" aria-hidden="true" />} 
                         text="hookia@hookia.com"
                         type="email"
                       />
                       <ContactInfo 
-                        icon={<Phone className="h-6 w-6 text-purple-500" aria-hidden="true" />} 
+                        icon={<Phone className="h-6 w-6 text-blue-500" aria-hidden="true" />} 
                         text="+506 8637 0703"
                         type="phone"
                       />
                      <ContactInfo 
-                        icon={<Waypoints className="h-6 w-6 text-purple-500" aria-hidden="true" />}
+                        icon={<Waypoints className="h-6 w-6 text-blue-500" aria-hidden="true" />}
                         text={
                           <a 
                             href="https://www.instagram.com/learnusprod/" 

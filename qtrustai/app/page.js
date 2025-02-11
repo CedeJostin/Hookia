@@ -17,7 +17,7 @@ export default function Home() {
 
   const features = [
     {
-      icon: <Users className="h-12 w-12 mb-4 text-purple-500 mt-5" />,
+      icon: <Users className="h-12 w-12 mb-4 text-blue-400 mt-5" />,
       title: "Asistentes Virtuales de IA",
       shortDescription: "Automatización de procesos administrativos y toma de decisiones",
       fullDescription: `Algoritmos avanzados de IA (Toma de decisiones basada en árboles de decisión y machine learning).
@@ -30,7 +30,7 @@ Secretaría Autónoma 24/7:
 Beneficio clave: Libera hasta 15 horas semanales en gestión operativa.`
     },
     {
-      icon: <Lightbulb className="h-12 w-12 mb-4 text-purple-500 mt-5" />,
+      icon: <Lightbulb className="h-12 w-12 mb-4 text-blue-400 mt-5" />,
       title: "Atención al Cliente Automatizada",
       shortDescription: "Experiencia del cliente premium y ventas sin fricciones",
       fullDescription: `Gestión de Clientes en Tiempo Real:
@@ -46,7 +46,7 @@ Ventas y Facturación Inteligente:
 Beneficio clave: Aumenta las ventas recurrentes un 30% con seguimiento automatizado.`
     },
     {
-      icon: <BarChart className="h-12 w-12 mb-4 text-purple-500 mt-5" />,
+      icon: <BarChart className="h-12 w-12 mb-4 text-blue-400 mt-5" />,
       title: "Business Intelligence",
       shortDescription: "Toma de decisiones basada en datos",
       fullDescription: `Análisis Predictivo y Táctico:
@@ -60,7 +60,7 @@ Reportes Ejecutivos Automatizados:
 Beneficio clave: Reduce un 40% las decisiones improvisadas con insights accionables.`
     },
     {
-      icon: <Package className="h-12 w-12 mb-4 text-purple-500 mt-5" />,
+      icon: <Package className="h-12 w-12 mb-4 text-blue-400 mt-5" />,
       title: "Gestión de Inventario",
       shortDescription: "Optimización de stock y reducción de pérdidas",
       fullDescription: `Control Inteligente de Stock:
@@ -71,7 +71,7 @@ Beneficio clave: Reduce un 40% las decisiones improvisadas con insights accionab
 Beneficio clave: Minimiza un 90% los errores de inventario y evita ventas perdidas.`
     },
     {
-      icon: <GraduationCap className="h-12 w-12 mb-4 text-purple-500 mt-5" />,
+      icon: <GraduationCap className="h-12 w-12 mb-4 text-blue-400 mt-5" />,
       title: "Consultoría Estratégica",
       shortDescription: "Transformación digital integral",
       fullDescription: `Auditoría de Eficiencia Operativa:
@@ -245,7 +245,7 @@ function FeatureCard({ icon, title, description, onClick }) {
         <div className="mb-4">{icon}</div>
         <h3 className="text-lg font-bold mb-2 text-white text-center">{title}</h3>
         <p className="text-center text-gray-400 flex-grow">{description}</p>
-        <button className="text-purple-400 hover:text-purple-300 mt-4">
+        <button className="text-blue-400 hover:text-blue-300 mt-4">
           Ver detalles →
         </button>
       </CardContent>

@@ -25,7 +25,7 @@ export default function Navbar() {
         className="flex items-center justify-between px-6 py-4 backdrop-blur-sm border-b border-white/10"
       >
         <Link href="/" className="flex items-center space-x-2">
-          <Bot className="w-8 h-8 text-purple-500" />
+          <Bot className="w-8 h-8 text-blue-500" />
           <span className="text-white font-medium text-xl">Hookia</span>
         </Link>
 

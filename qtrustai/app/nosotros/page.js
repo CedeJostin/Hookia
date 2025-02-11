@@ -36,13 +36,13 @@ export default function NosotrosPage() {
         <meta property="og:title" content="Sobre HookIA | Transformando Empresas con IA Avanzada" />
         <meta property="og:description" content="Descubre HookIA, líder en soluciones de IA empresarial. Conoce nuestro equipo, misión y valores que impulsan la innovación tecnológica." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://hookia.com/nosotros" />
+        <meta property="og:url" content="https://hookia.es/nosotros" />
         
         {/* Canonical y alternativas de idioma */}
-        <link rel="canonical" href="https://hookia.com/nosotros" hrefLang="es-ES" />
-        <link rel="alternate" href="https://hookia.com/nosotros" hrefLang="es-ES" />
-        <link rel="alternate" href="https://cr.hookia.com/nosotros" hrefLang="es-CR" />
-        <link rel="alternate" href="https://hookia.com/nosotros" hrefLang="x-default" />
+        <link rel="canonical" href="https://hookia.es/nosotros" hrefLang="es-ES" />
+        <link rel="alternate" href="https://hookia.es/nosotros" hrefLang="es-ES" />
+        <link rel="alternate" href="https://cr.hookia.es/nosotros" hrefLang="es-CR" />
+        <link rel="alternate" href="https://hookia.es/nosotros" hrefLang="x-default" />
 
         {/* Structured Data */}
         <script type="application/ld+json">
@@ -76,8 +76,8 @@ export default function NosotrosPage() {
                 </h2>
                 <p className="mx-auto max-w-[700px] text-gray-400 md:text-xl">
                   Especialistas en soluciones avanzadas de IA para negocios. Transformamos procesos complejos en 
-                  <span className="text-purple-400 font-semibold"> flujos de trabajo eficientes</span>, impulsando 
-                  <span className="text-purple-400 font-semibold"> crecimiento medible</span> y escalabilidad sostenible.
+                  <span className="text-blue-400 font-semibold"> flujos de trabajo eficientes</span>, impulsando 
+                  <span className="text-blue-400 font-semibold"> crecimiento medible</span> y escalabilidad sostenible.
                 </p>
               </div>
             </div>
@@ -88,17 +88,17 @@ export default function NosotrosPage() {
             <div className="container mx-auto px-4 md:px-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <FeatureCard
-                  icon={<Users className="h-12 w-12 mb-4 text-purple-500" aria-hidden="true" />}
+                  icon={<Users className="h-12 w-12 mb-4 text-blue-500" aria-hidden="true" />}
                   title="Nuestro Equipo"
                   description="Un grupo diverso de expertos en IA, ingeniería y negocios, unidos por la pasión por la innovación."
                 />
                 <FeatureCard
-                  icon={<Lightbulb className="h-12 w-12 mb-4 text-purple-500" aria-hidden="true" />}
+                  icon={<Lightbulb className="h-12 w-12 mb-4 text-blue-500" aria-hidden="true" />}
                   title="Nuestra Misión"
                   description="Democratizar la IA y la automatización para empresas de todos los tamaños, impulsando la eficiencia y el crecimiento."
                 />
                 <FeatureCard
-                  icon={<Target className="h-12 w-12 mb-4 text-purple-500" aria-hidden="true" />}
+                  icon={<Target className="h-12 w-12 mb-4 text-blue-500" aria-hidden="true" />}
                   title="Nuestros Valores"
                   description="Innovación, integridad y compromiso con el éxito de nuestros clientes guían cada decisión que tomamos."
                 />

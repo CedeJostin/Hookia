@@ -101,7 +101,7 @@ const ChatComponent = () => {
         {messages.map((message, index) => (
           <div key={index} className={`flex ${message.sent ? "justify-end" : "justify-start"}`}>
             <div
-              className={`rounded-lg px-4 py-2 ${message.sent ? "bg-purple-600 text-white" : "bg-gray-200 text-black"}`}
+              className={`rounded-lg px-4 py-2 ${message.sent ? "bg-blue-600 text-white" : "bg-gray-200 text-black"}`}
             >
               {message.text}
             </div>

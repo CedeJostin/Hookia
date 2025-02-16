@@ -9,6 +9,9 @@ import { Users, Lightbulb, BarChart, Package, GraduationCap } from "lucide-react
 import { useState } from 'react';
 import Head from "next/head";
 
+<meta name="google-site-verification" content="tu-código-de-verificación" />
+
+
 
 
 export default function Home() {

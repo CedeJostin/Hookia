@@ -49,20 +49,6 @@ Ventas y Facturación Inteligente:
 Beneficio clave: Aumenta las ventas recurrentes un 30% con seguimiento automatizado.`
     },
     {
-      icon: <BarChart className="h-12 w-12 mb-4 text-blue-400 mt-5" />,
-      title: "Business Intelligence",
-      shortDescription: "Toma de decisiones basada en datos",
-      fullDescription: `Análisis Predictivo y Táctico:
-- Monitoreo de tendencias de compra y comportamiento de clientes
-- Identificación de oportunidades de crecimiento y riesgos operativos
-
-Reportes Ejecutivos Automatizados:
-- Reportes de tendecias (ventas, inventario, ROI)
-- Alertas en tiempo real sobre anomalías o desviaciones
-
-Beneficio clave: Reduce un 40% las decisiones improvisadas con insights accionables.`
-    },
-    {
       icon: <Package className="h-12 w-12 mb-4 text-blue-400 mt-5" />,
       title: "Gestión de Inventario",
       shortDescription: "Optimización de stock y reducción de pérdidas",

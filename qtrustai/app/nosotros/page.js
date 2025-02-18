@@ -95,7 +95,7 @@ export default function NosotrosPage() {
                 <FeatureCard
                   icon={<Lightbulb className="h-12 w-12 mb-4 text-blue-500" aria-hidden="true" />}
                   title="Nuestra Misión"
-                  description="Democratizar la IA y la automatización para empresas de todos los tamaños, impulsando la eficiencia y el crecimiento."
+                  description="Ayudar a empresas pequeñas y grandes a automatizar su tiempo y recursos con soluciones de IA avanzada."
                 />
                 <FeatureCard
                   icon={<Target className="h-12 w-12 mb-4 text-blue-500" aria-hidden="true" />}

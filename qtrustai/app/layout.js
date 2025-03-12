@@ -14,6 +14,19 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Hookia",
   description: "Hookia, el mejor lugar de automatizaciones.",
+  verification: {
+    google: "tu-código-de-verificación",
+    other: {
+      "facebook-domain-verification": "bjp8wxkw78csq7cg8wyvyxomvog97k",
+    }
+  },
+  alternates: {
+    canonical: "https://hookia.com",
+    languages: {
+      "es-ES": "https://hookia.com",
+      "es-CR": "https://cr.hookia.com",
+    }
+  }
 };
 
 export default function RootLayout({ children }) {

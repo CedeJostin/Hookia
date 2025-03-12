@@ -10,6 +10,7 @@ import { useState } from 'react';
 import Head from "next/head";
 
 <meta name="google-site-verification" content="tu-código-de-verificación" />
+<meta name="facebook-domain-verification" content="bjp8wxkw78csq7cg8wyvyxomvog97k" />
 
 
 
